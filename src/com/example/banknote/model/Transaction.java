@@ -74,8 +74,10 @@ public class Transaction {
 		this.setTargetUser();
 	}
 	
-	private void setDescription(String description) {
+	private void setDescription(String description) 
+	{
 		this.description = description;
+		DB.update(this);
 	}
 
 	/**
@@ -85,6 +87,7 @@ public class Transaction {
 	public void setType(String type)
 	{
 		this.type = type;
+		DB.update(this);
 	}
 	
 	/**
@@ -94,6 +97,7 @@ public class Transaction {
 	public void setIsIncome(boolean isIncome)
 	{
 		this.isIncome = isIncome;
+		DB.update(this);
 	}
 	
 	/**
@@ -103,6 +107,7 @@ public class Transaction {
 	public void setAmount(double amount)
 	{
 		this.amount = amount;
+		DB.update(this);
 	}
 	
 	/**
@@ -112,6 +117,7 @@ public class Transaction {
 	public void setRecordedTime()
 	{
 		this.recordTime = new Date();
+		DB.update(this);
 	}
 	
 	/**
@@ -121,6 +127,7 @@ public class Transaction {
 	public void setTargetAccount()
 	{
 		this.targetAccount = AccountSingle.getCurrentAccount();
+		DB.update(this);
 	}
 	
 	/**
@@ -130,6 +137,7 @@ public class Transaction {
 	public void setTargetUser()
 	{
 		this.targetUser = UserSingle.getCurrentUser();
+		DB.update(this);
 	}
 	
 	/**

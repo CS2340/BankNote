@@ -101,7 +101,7 @@ public class Dashboard extends Activity {
 
 		// Initialize the list with all the accounts in user by DisplayName
 
-		for (Account a : UserSingle.getCurrentUser().getAccounts()) {
+			for (Account a : UserSingle.getCurrentUser().getAccounts()) {
 			list.add(a.getDisplayName());
 		}
 

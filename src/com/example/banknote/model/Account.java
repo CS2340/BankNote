@@ -1,6 +1,7 @@
 package com.example.banknote.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -35,6 +36,7 @@ public class Account implements Comparable<Account>
 	 * @Editted by Nghia Huynh
 	 */
 	private History transHistory = new History();
+	private List<Transaction> trans;
 	
 	/**
 	 * 
@@ -49,6 +51,7 @@ public class Account implements Comparable<Account>
 		setDisplayName(displayName);
 		setBalance(balance);
 		setInterestRate(interestRate);
+		trans = new ArrayList<Transaction>();
 	}
 	
 	/**
@@ -56,7 +59,7 @@ public class Account implements Comparable<Account>
 	 */
 	public Account() 
 	{
-
+		trans = new ArrayList<Transaction>();
 	}
 
 	/**
@@ -71,6 +74,7 @@ public class Account implements Comparable<Account>
 		{
 			displayName = fullName;
 		}
+		DB.update(this);
 	}
 	
 	/**
@@ -80,6 +84,7 @@ public class Account implements Comparable<Account>
 	public void setDisplayName(String displayName)
 	{
 		this.displayName = displayName;
+		DB.update(this);
 	}
 	
 	/**
@@ -89,6 +94,7 @@ public class Account implements Comparable<Account>
 	public void setBalance(double balance)
 	{
 		this.balance = balance;
+		DB.update(this);
 	}
 	
 	/**
@@ -98,6 +104,7 @@ public class Account implements Comparable<Account>
 	public void setInterestRate(double interestRate)
 	{
 		this.interestRate = interestRate;
+		DB.update(this);
 	}
 	
 	/**
@@ -145,11 +152,16 @@ public class Account implements Comparable<Account>
 		return transHistory;
 	}
 	
+	public List<Transaction> getTrans()
+	{
+		return trans;
+	}
 	/**
 	 * Update account's balance with the last recent transaction added
 	 */
 	public void updateBalance(double amount){
 		balance += amount;
+		DB.update(this);
 	}
 	
 	
@@ -162,5 +174,11 @@ public class Account implements Comparable<Account>
 	{
 		Double difference = balance - other.getBalance();
 		return difference.compareTo(0.0);
+	}
+
+	public void addNewTrans(Transaction newTrans) 
+	{
+		trans.add(newTrans);
+		
 	}
 }

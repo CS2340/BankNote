@@ -28,12 +28,12 @@ public class SpendingCategoryReport {
 		{
 			for (Account a: u.getAccounts())
 			{
-				if (a.getHistory() != null)
-				{
-					History h = a.getHistory();
-					if (h.getArrayList() != null)
-					{
-						ArrayList<Transaction> trans = (ArrayList<Transaction>) h.getArrayList();
+//				if (a.getHistory() != null)
+//				{
+//					History h = a.getHistory();
+//					if (h.getArrayList() != null)
+//					{
+						ArrayList<Transaction> trans =  (ArrayList<Transaction>) a.getTrans();
 						{
 							for(Transaction t : trans)
 							{
@@ -46,8 +46,8 @@ public class SpendingCategoryReport {
 									}
 								}
 							}
-						}
-					}
+//						}
+//					}
 						
 				}
 			}

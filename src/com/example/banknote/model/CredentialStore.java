@@ -1,87 +1,85 @@
 package com.example.banknote.model;
 
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Collection;
+import java.util.List;
 
-public class CredentialStore {
-	private static String filename = "users.dat";
-	private static Collection<User> userList;
-	private static boolean isSetUp = false;
+import com.db4o.ObjectContainer;
+import com.db4o.query.Predicate;
+
+public class CredentialStore 
+{
+	private static ObjectContainer db;
 	
-	public static void add(String name, String password){
+	public static void add(String name, String password)
+	{
 		User u = new User(name, password);
-		FileOutputStream fos = null;
-		ObjectOutputStream out = null;
-		try {
-			fos = new FileOutputStream(filename, true);
-			out = new ObjectOutputStream(fos);
-			out.writeObject(u);
-			out.close();
-			
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		DB.update(u);
+	}
+	
+	private static void delete(User u)
+	{
+		List<User> uList = getUList(u.getName());
+		if (uList.size() == 0)
+		{
+			User dead = uList.get(0);
+			DB.delete(dead);
 		}
 	}
 	
-	public static User getUser(String name){
-		for(User u: userList){
-			if(u.getName().equals(name)){
-				return u;
-			}
+	public static User getUser(final String name)
+	{
+		List<User> uList = getUList(name);
+		if (uList.size() == 0)
+		{
+			return null;
 		}
-		return null;
+		else return uList.get(0);
 	}
 	
 	
-	public boolean containsUser(User u){
-		if(!isSetUp){
-			setupUserList(); 
-		}
-		
-		for(User userInList: userList){
-			if(User.nameEquals(u, userInList)){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	// populates the Collection with Users from file
-	private static void setupUserList(){
-		FileInputStream fis = null;
-		ObjectInputStream in = null;
-		try {
-			fis = new FileInputStream(filename);
-			in = new ObjectInputStream(fis);
-			User u;
-			while(in.available() > 1 && (u = (User) in.readObject()) != null){
-				userList.add(u);
-			}
-			in.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
-	
-	public static boolean containsName(String name){
-		if(!isSetUp){
-			setupUserList();
-		}
-		for(User userInList: userList){
-			if(name.equals(userInList.getName())){
-				return true;
-			}
-		}
-		return false;
+	public boolean containsUser(final User u)
+	{
+		List<User> uList = getUList(u.getName());
+		return (uList.size() != 0);
 	}
 
-	public static boolean containsNameAndPassword(String name, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	public static boolean containsName(final String name)
+	{
+		List<User> uList = getUList(name);
+		return (uList.size() != 0);
+		
 	}
+
+
+	public static boolean containsNameAndPassword(String name, String password) 
+	{
+		if (containsName(name))
+		{
+			return (getUser(name).getPassword().equals(password));
+		}
+		else return false;
+	}
+	
+	
+	/**
+	 * This is the only method that searches the database.
+	 * 
+	 * @param name
+	 * @return a list of any or all users with that name
+	 */
+	private static List<User> getUList(final String name) 
+	{
+		db = DB.getInstance().getDB();
+		List<User> l = db.query(new Predicate<User>() 
+			    {
+		        	public boolean match(User u) 
+		        	{
+		        		return name.equals(u.getName());
+		        	}
+		        });
+		return l;
+	}
+	
 	
 }

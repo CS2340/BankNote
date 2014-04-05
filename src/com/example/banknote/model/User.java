@@ -67,6 +67,7 @@ public class User
 	public void setName(String name) 
 	{
 		this.name = name;
+		DB.update(this);
 	}
 
 	/**
@@ -75,7 +76,8 @@ public class User
 	 */
 	public void setPassword(String password)
 	{
-		this.password = password;		
+		this.password = password;
+		DB.update(this);
 	}
 
 	/**
@@ -85,6 +87,7 @@ public class User
 	public void addAccount(Account account)
 	{
 		this.accounts.add(account);
+		DB.update(this);
 	}
 	
 	/**

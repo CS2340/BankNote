@@ -31,6 +31,7 @@ public class History {
 	public void addNewTrans (Transaction newTrans) {
 		// add newTrans to the Transaction List
 		transList.add(newTrans);
+		DB.update(this);
 	}
 	
 	/**
@@ -39,6 +40,7 @@ public class History {
 	public void setIntBalacce (double amount) {
 		Transaction initialTransaction = new Transaction ("Initial Balance", "Initial Balance", true, amount);
 		transList.add(initialTransaction);
+		DB.update(this);
 	}
 	
 	

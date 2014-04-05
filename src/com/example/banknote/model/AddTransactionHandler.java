@@ -21,7 +21,7 @@ public class AddTransactionHandler {
 		// create new transaction by defined instructors
 	 
 		Transaction newTrans = new Transaction (type, description, isIncome, transAmount);
-		AccountSingle.getCurrentAccount().getHistory().addNewTrans(newTrans);
+		AccountSingle.getCurrentAccount().addNewTrans(newTrans);
 		
 		
 		//Update the Balance in current account
