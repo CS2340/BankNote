@@ -22,108 +22,136 @@ import com.example.banknote.model.DateSingle;
 import com.example.banknote.model.ReportEntry;
 import com.example.banknote.model.SpendingCategoryReport;
 
-public class SelectDateActivity extends FragmentActivity
-{
-	Button reportButton;
-	Button startButton;
-	Button endButton;
-	int startId = 0;
-	int endId = 1;
-	TextView displayStart;
-	TextView displayEnd;
-	
-	boolean startSet = false;
-	boolean endSet = false;
-//For next step
-	ListView listView;
-	ListAdapter listAdapter;
-	ArrayList<ReportEntry> list;
-	
-	 public void onCreate(Bundle savedInstanceState) 
-	 {
-	 
-	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.activity_reports_screen);
-	        
-	        displayStart = (TextView) findViewById(R.id.displayStart);
-	        displayEnd = (TextView) findViewById(R.id.displayEnd);
+/**
+ * The Class SelectDateActivity.
+ */
+public class SelectDateActivity extends FragmentActivity {
+    
+    /** The report button. */
+    Button reportButton;
+    
+    /** The start button. */
+    Button startButton;
+    
+    /** The end button. */
+    Button endButton;
+    
+    /** The start id. */
+    int startId = 0;
+    
+    /** The end id. */
+    int endId = 1;
+    
+    /** The display start. */
+    TextView displayStart;
+    
+    /** The display end. */
+    TextView displayEnd;
 
-	        reportButton = (Button) findViewById(R.id.get_report_button);
-			reportButton.setOnClickListener(new OnClickListener()
-			{
-				public void onClick(View v)
-				{
-					
-					if (DateSingle.getInstance().getStartDate() == null || DateSingle.getInstance().getEndDate() == null )
-					{
-						String message = "Must select at least one date";
-						Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
-						toast.setGravity(Gravity.CENTER, 0, 0);
-						toast.show();
-					}
-					else// (dates are set)
-					{
-						Date start = DateSingle.getInstance().getStartDate();
-						Date end = DateSingle.getInstance().getEndDate();
+    /** The start set. */
+    boolean startSet = false;
+    
+    /** The end set. */
+    boolean endSet = false;
+    // For next step
+    /** The list view. */
+    ListView listView;
+    
+    /** The list adapter. */
+    ListAdapter listAdapter;
+    
+    /** The list. */
+    ArrayList<ReportEntry> list;
 
-						SpendingCategoryReport sCReport = new SpendingCategoryReport(start,end);
-						list = sCReport.getCatArray();
-						displayListVeiw();
-						
-						displayStart.setText(DateSingle.getInstance().getStartDate().toString());
-						displayEnd.setText(DateSingle.getInstance().getEndDate().toString());
-					
-					
-					}	
-				}
-			});
-	        
-	        startButton = (Button) findViewById(R.id.button_startDate);
-			startButton.setOnClickListener(new OnClickListener()
-			{
-				public void onClick(View v)
-				{
-					DateSingle.getInstance().selectStartDate();
-					showDatePickerDialog(v);
-				}
-			});
-			
-	        endButton = (Button) findViewById(R.id.button_endDate);
-			endButton.setOnClickListener(new OnClickListener()
-			{
-				public void onClick(View v)
-				{
-					DateSingle.getInstance().selectEndDate();
-					showDatePickerDialog(v);
-				}
-			});
-	        
-	 }
-	 
-	 
-	 protected void displayListVeiw() 
-	 {
-		listView = (ListView) findViewById(R.id.listView1);
+    /**
+     * Method to be executed upon creation of this screen.
+     * 
+     * @param savedInstanceState auto-created from android
+     * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
+     */
+    public void onCreate(Bundle savedInstanceState) {
 
-			
-		listAdapter = new ArrayAdapter<ReportEntry>(this, android.R.layout.simple_list_item_1, list);
-		listView.setAdapter(listAdapter);
-	
-	
-	 }
-	       
-		
-	
-     public void showDatePickerDialog(View v) 
-	 {
-		    DialogFragment newFragment = new DatePickerFragment();
-		    newFragment.show(getSupportFragmentManager(), "datePicker");
-	 }
-     
- 	@Override
- 	public void onBackPressed() 
- 	{
- 		startActivity(new Intent(getApplicationContext(), Dashboard.class));
- 	}
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_reports_screen);
+
+        displayStart = (TextView) findViewById(R.id.displayStart);
+        displayEnd = (TextView) findViewById(R.id.displayEnd);
+
+        reportButton = (Button) findViewById(R.id.get_report_button);
+        reportButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+
+                if (DateSingle.getInstance().getStartDate() == null
+                        || DateSingle.getInstance().getEndDate() == null) {
+                    String message = "Must select at least one date";
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            message, Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                } else // (dates are set)
+                {
+                    Date start = DateSingle.getInstance().getStartDate();
+                    Date end = DateSingle.getInstance().getEndDate();
+
+                    SpendingCategoryReport sCReport = new SpendingCategoryReport(
+                            start, end);
+                    list = sCReport.getCatArray();
+                    displayListVeiw();
+
+                    displayStart.setText(DateSingle.getInstance()
+                            .getStartDate().toString());
+                    displayEnd.setText(DateSingle.getInstance().getEndDate()
+                            .toString());
+
+                }
+            }
+        });
+
+        startButton = (Button) findViewById(R.id.button_startDate);
+        startButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                DateSingle.getInstance().selectStartDate();
+                showDatePickerDialog(v);
+            }
+        });
+
+        endButton = (Button) findViewById(R.id.button_endDate);
+        endButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                DateSingle.getInstance().selectEndDate();
+                showDatePickerDialog(v);
+            }
+        });
+
+    }
+
+    /**
+     * Display list veiw.
+     */
+    protected void displayListVeiw() {
+        listView = (ListView) findViewById(R.id.listView1);
+
+        listAdapter = new ArrayAdapter<ReportEntry>(this,
+                android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(listAdapter);
+
+    }
+
+    /**
+     * Show date picker dialog.
+     * 
+     * @param v the v
+     */
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    /* (non-Javadoc)
+     * @see android.support.v4.app.FragmentActivity#onBackPressed()
+     */
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), Dashboard.class));
+    }
 }
-

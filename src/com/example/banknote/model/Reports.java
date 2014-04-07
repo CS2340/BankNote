@@ -1,309 +1,414 @@
 package com.example.banknote.model;
 
-
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The Class of the model to generate Reports.
+ */
 public class Reports {
-	
-//	private List<Transaction> temp = UserSingle.getCurrentUser()
-	
-	public static List<Transaction> foodAndDrink;  
-	public static List<Transaction> shopping;  
-	public static List<Transaction> bills;  
-	public static List<Transaction> entertainment;  
-	public static List<Transaction> familyAndPersonal;  
-	public static List<Transaction> home;  
-	public static List<Transaction> utilities;  
-	public static List<Transaction> car;  
-	public static List<Transaction> travel;  
-	public static List<Transaction> others;  
-	
-	
-	static Date dateFrom; 
-	static Date dateTo; 
-	
-	public static void storeDate(Date date1, Date date2) {
-		dateFrom = date1; 
-		dateTo = date2; 
-	}
-	
-	@SuppressWarnings("deprecation")
-	public static List<Transaction> getDateRange(List<Transaction> fullList) { 
-		List<Transaction> dateRange = new ArrayList<Transaction>(); 
-		for (Transaction t: fullList) {
-			if (t.getRecordedTime().after(dateFrom) && 
-					t.getRecordedTime().before(dateTo)) {
-				dateRange.add(t);
-			}
-		}
-//		int i = 0; 
-//		List<Transaction> dateRange = new ArrayList<Transaction>(); 
-//		Transaction temp = fullList.get(i); 
-//		Date currDate = temp.getRecordedTime(); 
-//		boolean found = false; 
-//		while(found == false) {
-//			//if dateFrom equals the currDate in the transaction list 
-//			if(dateFrom.compareTo(currDate) == 0) {
-//				dateRange.add(temp); 
-//				while(dateFrom.compareTo(currDate) == 0) {
-//					i++; 
-//					temp = fullList.get(i); 
-//					if(temp == null)
-//					{
-//						break; 
-//					}
-//					if(dateTo.compareTo(currDate) == 0) {
-//						dateRange.add(temp); 
-//						found = true; 
-//					}
-//				}
-//			}
-//			else {
-//				i++; 
-//				temp = fullList.get(i); 
-//			}
-	//	}
-		
-//		while(found == false)
-//		{
-//			temp = fullList.get(i); 
-//			@SuppressWarnings("deprecation")
-//			int year = currDate.getYear(); 
-//			int month = currDate.getMonth(); 
-//			int day = currDate.getDay(); 
-//			if(year == dateFrom.getYear() && month == dateFrom.getMonth() && day == dateFrom.getDay())
-//			{
-//				dateRange.add(temp); 
-//				while()
-//			}
-//			else{
-//				i++; 
-//			}
-//		}
-		return dateRange;//dateRange; 
-	}
-	
-	public static List<Transaction> getFullList() { 
-		//get list of accounts
-		ArrayList<Account> accounts = UserSingle.getCurrentUser().getAccounts(); 
-		//actual list of transactions for each account
-		List<Transaction> fullList = null; 
-		//gets list of all the histories of each account 
-		for(int i = 0; i<accounts.size(); i++) 
-		{
-			Account current = accounts.get(i); 
-			//gets arraylist transactions
-			fullList.addAll(current.getHistory().getArrayList()); 
-		}
-		//now i got a full list of all the transactions, sort them 
-		return fullList; 
-	}
-	
-	//check for dates that would end up that day 
-	//check for dates apart 
-	//check for dates negative 
-	public static ArrayList<String> spendingCategoryReport(List<Transaction> dateRange) { 
-		ArrayList<String> report = null; 
-		Transaction currTransanction; 		
-		for(int i = 0; i<dateRange.size(); i++) {
-			currTransanction = dateRange.get(i); 
-			String currType = currTransanction.getType(); 
-			if(currType == "Food and Drink") {
-				foodAndDrink.add(currTransanction); 
-			}
-			else if(currType == "Shopping") { 
-				shopping.add(currTransanction); 
-			}
-			else if(currType == "Bills") { 
-				bills.add(currTransanction); 
 
-			}
-			else if(currType == "Entertainment") { 
-				entertainment.add(currTransanction); 
+    /** The Constant SHOPPING. */
+    private static final String SHOPPING = "Shopping";
+    
+    /** The Constant FOOD_AND_DRINK. */
+    private static final String FOOD_AND_DRINK = "Food and Drink";
+    
+    /** The Constant BILLS. */
+    private static final String BILLS = "Bills";
+    
+    /** The Constant ENTERTAINMENT. */
+    private static final String ENTERTAINMENT = "Entertainment";
+    
+    /** The Constant FAMILY_AND_PERSONAL. */
+    private static final String FAMILY_AND_PERSONAL = "Family and Personal";
+    
+    /** The Constant HOME. */
+    private static final String HOME = "Home";
+    
+    /** The Constant UTILITIES. */
+    private static final String UTILITIES = "Utilities";
+    
+    /** The Constant TRAVEL. */
+    private static final String TRAVEL = "Travel";
+    
+    /** The Constant OTHERS. */
+    private static final String OTHERS = "Others";
+    
+    /** The Constant CAR. */
+    private static final String CAR = "Car";
 
-			}
-			else if(currType == "Family And Personal") { 
-				familyAndPersonal.add(currTransanction); 
+    /** The food and drink. */
+    public static List<Transaction> foodAndDrink;
+    
+    /** The shopping. */
+    public static List<Transaction> shopping;
+    
+    /** The bills. */
+    public static List<Transaction> bills;
+    
+    /** The entertainment. */
+    public static List<Transaction> entertainment;
+    
+    /** The family and personal. */
+    public static List<Transaction> familyAndPersonal;
+    
+    /** The home. */
+    public static List<Transaction> home;
+    
+    /** The utilities. */
+    public static List<Transaction> utilities;
+    
+    /** The car. */
+    public static List<Transaction> car;
+    
+    /** The travel. */
+    public static List<Transaction> travel;
+    
+    /** The others. */
+    public static List<Transaction> others;
 
-			}
-			else if(currType == "Home") { 
-				home.add(currTransanction); 
+    /** The date from. */
+    static Date dateFrom;
+    
+    /** The date to. */
+    static Date dateTo;
 
-			}
-			else if(currType == "Utilities") { 
-				utilities.add(currTransanction); 
+    /**
+     * Store date.
+     * 
+     * @param date1
+     *            the date1
+     * @param date2
+     *            the date2
+     */
+    public static void storeDate(Date date1, Date date2) {
+        dateFrom = date1;
+        dateTo = date2;
+    }
 
-			}
-			else if(currType == "Car") { 
-				car.add(currTransanction); 
+    /**
+     * Gets the date range.
+     * 
+     * @param fullList
+     *            the full list
+     * @return the date range
+     */
+    public static List<Transaction> getDateRange(List<Transaction> fullList) {
+        List<Transaction> dateRange = new ArrayList<Transaction>();
+        for (Transaction t : fullList) {
+            if (t.getRecordedTime().after(dateFrom)
+                    && t.getRecordedTime().before(dateTo)) {
+                dateRange.add(t);
+            }
+        }
+        
+        return dateRange;
+    }
 
-			}
-			else if(currType == "Travel") { 
-				travel.add(currTransanction); 
+    /**
+     * Gets the full list.
+     * 
+     * @return the full list
+     */
+    public static List<Transaction> getFullList() {
+        // get list of accounts
+        ArrayList<Account> accounts = UserSingle.getCurrentUser().getAccounts();
+        // actual list of transactions for each account
+        List<Transaction> fullList = null;
+        // gets list of all the histories of each account
+        for (int i = 0; i < accounts.size(); i++) {
+            Account current = accounts.get(i);
+            // gets arraylist transactions
+            fullList.addAll(current.getHistory().getArrayList());
+        }
+        // now i got a full list of all the transactions, sort them
+        return fullList;
+    }
 
-			}
-			else if(currType == "Others") { 
-				others.add(currTransanction); 
-			}
-		}
-		
-		report.add(getFoodAndDrinkTotal(foodAndDrink)); 
-		report.add(getFoodAndDrinkTotal(shopping)); 
-		report.add(getFoodAndDrinkTotal(bills)); 
-		report.add(getFoodAndDrinkTotal(entertainment)); 
-		report.add(getFoodAndDrinkTotal(familyAndPersonal)); 
-		report.add(getFoodAndDrinkTotal(home)); 
-		report.add(getFoodAndDrinkTotal(utilities)); 
-		report.add(getFoodAndDrinkTotal(car)); 
-		report.add(getFoodAndDrinkTotal(travel)); 
-		report.add(getFoodAndDrinkTotal(others)); 
-		return report; 
-	}
-	
-	
-	public static String getFoodAndDrinkTotal(List<Transaction> foodAndDrink) {
-		double sum = 0; 
-		for(int i = 0; i<foodAndDrink.size(); i++) {
-			Transaction curr = foodAndDrink.get(i); 
-			sum = sum + curr.getAmount(); 
-		}
-		return "Food And Drink" + Double.toString(sum); 
-	}
-	
-	public static String getShoppingTotal(List<Transaction> shopping) {
-		double sum = 0; 
-		for(int i = 0; i<shopping.size(); i++) {
-			Transaction curr = shopping.get(i); 
-			sum = sum + curr.getAmount(); 
-		}
-		return "Shopping" + Double.toString(sum); 
-	}
-	
-	public static String getBillsTotal(List<Transaction> bills) {
-		double sum = 0; 
-		for(int i = 0; i<bills.size(); i++) {
-			Transaction curr = bills.get(i); 
-			sum = sum + curr.getAmount(); 
-		}
-		return "Bills" + Double.toString(sum); 
-	}
-	
-	public static String getEntertainmentTotal(List<Transaction> entertainment) {
-		double sum = 0; 
-		for(int i = 0; i<entertainment.size(); i++) {
-			Transaction curr = entertainment.get(i); 
-			sum = sum + curr.getAmount(); 
-		}
-		return "Entertainment" + Double.toString(sum); 
-	}
-	
-	public static String getFamilyAndPersonalTotal(List<Transaction> familyAndPersonal) {
-		double sum = 0; 
-		for(int i = 0; i<familyAndPersonal.size(); i++) {
-			Transaction curr = familyAndPersonal.get(i); 
-			sum = sum + curr.getAmount(); 
-		}
-		return "Family And Personal" + Double.toString(sum); 
-	}
-	
-	public static String getHomeTotal(List<Transaction> home) {
-		double sum = 0; 
-		for(int i = 0; i<home.size(); i++) {
-			Transaction curr = home.get(i); 
-			sum = sum + curr.getAmount(); 
-		}
-		return "Home" + Double.toString(sum); 
-	}
-	
-	public static String getUtilitiesTotal(List<Transaction> utilities) {
-		double sum = 0; 
-		for(int i = 0; i<utilities.size(); i++) {
-			Transaction curr = utilities.get(i); 
-			sum = sum + curr.getAmount(); 
-		}
-		return "Utilities" + Double.toString(sum); 
-	}
-	
-	public static String getCarTotal(List<Transaction> car) {
-		double sum = 0; 
-		for(int i = 0; i<car.size(); i++) {
-			Transaction curr = car.get(i); 
-			sum = sum + curr.getAmount(); 
-		}
-		return "Car" + Double.toString(sum); 
-	}
-	
-	public static String getTravelTotal(List<Transaction> travel) {
-		double sum = 0; 
-		for(int i = 0; i<travel.size(); i++) {
-			Transaction curr = travel.get(i); 
-			sum = sum + curr.getAmount(); 
-		}
-		return "Travel" + Double.toString(sum); 
-	}
-	
-	public static String getOthersTotal(List<Transaction> others) {
-		double sum = 0; 
-		for(int i = 0; i<others.size(); i++) {
-			Transaction curr = others.get(i); 
-			sum = sum + curr.getAmount(); 
-		}
-		return "Others" + Double.toString(sum); 
-	}
+    /**
+     * Spending category report.
+     * 
+     * @param dateRange the date range
+     * @return the list of strings for the report to display
+     */
+    public static ArrayList<String> spendingCategoryReport(
+            List<Transaction> dateRange) {
+        ArrayList<String> report = new ArrayList<String>();
+        Transaction currTransanction;
+        for (int i = 0; i < dateRange.size(); i++) {
+            currTransanction = dateRange.get(i);
+            String currType = currTransanction.getType();
+            if (currType.equals(FOOD_AND_DRINK)) {
+                foodAndDrink.add(currTransanction);
+            } else if (currType.equals(SHOPPING)) {
+                shopping.add(currTransanction);
+            } else if (currType.equals(BILLS)) {
+                bills.add(currTransanction);
 
-	
-	//getters
-	
-	public static List<Transaction> getFoodAndDrink(List<Transaction> foodAndDrink) {
-		return foodAndDrink; 
-	}
-	
-	public static List<Transaction> getShopping(List<Transaction> shopping) {
-		return shopping; 
-	}
-	
-	public static List<Transaction> getBills(List<Transaction> bills) {
-		return bills; 
-	}
-	
-	public static List<Transaction> getEntertainment(List<Transaction> entertainment) {
-		return entertainment; 
-	}
-	
-	public static List<Transaction> getFamilyAndPersonal(List<Transaction> familyAndPersonal) {
-		return familyAndPersonal; 
-	}
-	
-	public static List<Transaction> getHome(List<Transaction> home) {
-		return home; 
-	}
-	
-	public static List<Transaction> getUtilities(List<Transaction> utilities) {
-		return utilities; 
-	}
-	
-	public static List<Transaction> getCar(List<Transaction> car) {
-		return car; 
-	}
-	
-	public static List<Transaction> getTravel(List<Transaction> travel) {
-		return travel; 
-	}
-	
-	public static List<Transaction> getOthers(List<Transaction> others) {
-		return others; 
-	}
+            } else if (currType.equals(ENTERTAINMENT)) {
+                entertainment.add(currTransanction);
 
-	public static ArrayList<String> getReports(Date start, Date end) {
-		// TODO Auto-generated method stub
-		storeDate(start, end);
-		return spendingCategoryReport(getDateRange(getFullList())); 
+            } else if (currType.equals(FAMILY_AND_PERSONAL)) {
+                familyAndPersonal.add(currTransanction);
 
-	}
+            } else if (currType.equals(HOME)) {
+                home.add(currTransanction);
+
+            } else if (currType.equals(UTILITIES)) {
+                utilities.add(currTransanction);
+
+            } else if (currType.equals(CAR)) {
+                car.add(currTransanction);
+
+            } else if (currType.equals(TRAVEL)) {
+                travel.add(currTransanction);
+
+            } else if (currType.equals(OTHERS)) {
+                others.add(currTransanction);
+            }
+        }
+        
+        report.add(getFoodAndDrinkTotal());
+        report.add(getShoppingTotal());
+        report.add(getBillsTotal());
+        report.add(getEntertainmentTotal());
+        report.add(getFamilyAndPersonalTotal());
+        report.add(getHomeTotal());
+        report.add(getUtilitiesTotal());
+        report.add(getCarTotal());
+        report.add(getTravelTotal());
+        report.add(getOthersTotal());
+        
+        return report;
+    }
+    
+
+    /**
+     * Gets the food and drink total.
+     * @return the food and drink total
+     */
+    public static String getFoodAndDrinkTotal() {
+        double sum = 0;
+        for (int i = 0; i < foodAndDrink.size(); i++) {
+            Transaction curr = foodAndDrink.get(i);
+            sum = sum + curr.getAmount();
+        }
+        return FOOD_AND_DRINK + Double.toString(sum);
+    }
+
+    /**
+     * Gets the shopping total.
+     * @return the shopping total
+     */
+    public static String getShoppingTotal() {
+        double sum = 0;
+        for (int i = 0; i < shopping.size(); i++) {
+            Transaction curr = shopping.get(i);
+            sum = sum + curr.getAmount();
+        }
+        return SHOPPING + Double.toString(sum);
+    }
+
+    /**
+     * Gets the bills total.
+     * @return the bills total
+     */
+    public static String getBillsTotal() {
+        double sum = 0;
+        for (int i = 0; i < bills.size(); i++) {
+            Transaction curr = bills.get(i);
+            sum = sum + curr.getAmount();
+        }
+        return BILLS + Double.toString(sum);
+    }
+
+    /**
+     * Gets the entertainment total.
+     * @return the entertainment total
+     */
+    public static String getEntertainmentTotal() {
+        double sum = 0;
+        for (int i = 0; i < entertainment.size(); i++) {
+            Transaction curr = entertainment.get(i);
+            sum = sum + curr.getAmount();
+        }
+        return ENTERTAINMENT + Double.toString(sum);
+    }
+
+    /**
+     * Gets the family and personal total.
+     * @return the family and personal total
+     */
+    public static String getFamilyAndPersonalTotal() {
+        double sum = 0;
+        for (int i = 0; i < familyAndPersonal.size(); i++) {
+            Transaction curr = familyAndPersonal.get(i);
+            sum = sum + curr.getAmount();
+        }
+        return FAMILY_AND_PERSONAL + Double.toString(sum);
+    }
+
+    /**
+     * Gets the home total.
+     * @return the home total
+     */
+    public static String getHomeTotal() {
+        double sum = 0;
+        for (int i = 0; i < home.size(); i++) {
+            Transaction curr = home.get(i);
+            sum = sum + curr.getAmount();
+        }
+        return HOME + Double.toString(sum);
+    }
+
+    /**
+     * Gets the utilities total.
+     * @return the utilities total
+     */
+    public static String getUtilitiesTotal() {
+        double sum = 0;
+        for (int i = 0; i < utilities.size(); i++) {
+            Transaction curr = utilities.get(i);
+            sum = sum + curr.getAmount();
+        }
+        return UTILITIES + Double.toString(sum);
+    }
+
+    /**
+     * Gets the car total.
+     * @return the car total
+     */
+    public static String getCarTotal() {
+        double sum = 0;
+        for (int i = 0; i < car.size(); i++) {
+            Transaction curr = car.get(i);
+            sum = sum + curr.getAmount();
+        }
+        return CAR + Double.toString(sum);
+    }
+
+    /**
+     * Gets the travel total.
+     * @return the travel total
+     */
+    public static String getTravelTotal() {
+        double sum = 0;
+        for (int i = 0; i < travel.size(); i++) {
+            Transaction curr = travel.get(i);
+            sum = sum + curr.getAmount();
+        }
+        return TRAVEL + Double.toString(sum);
+    }
+
+    /**
+     * Gets the others total.
+     * @return the others total
+     */
+    public static String getOthersTotal() {
+        double sum = 0;
+        for (int i = 0; i < others.size(); i++) {
+            Transaction curr = others.get(i);
+            sum = sum + curr.getAmount();
+        }
+        return OTHERS + Double.toString(sum);
+    }
+
+    // getters
+
+    /**
+     * Gets the food and drink.
+     * @return the food and drink
+     */
+    public static List<Transaction> getFoodAndDrink() {
+        return foodAndDrink;
+    }
+
+    /**
+     * Gets the shopping.
+     * @return the shopping
+     */
+    public static List<Transaction> getShopping() {
+        return shopping;
+    }
+
+    /**
+     * Gets the bills.
+     * @return the bills
+     */
+    public static List<Transaction> getBills() {
+        return bills;
+    }
+
+    /**
+     * Gets the entertainment.
+     * @return the entertainment
+     */
+    public static List<Transaction> getEntertainment() {
+        return entertainment;
+    }
+
+    /**
+     * Gets the family and personal.
+     * @return the family and personal
+     */
+    public static List<Transaction> getFamilyAndPersonal() {
+        return familyAndPersonal;
+    }
+
+    /**
+     * Gets the home.
+     * @return the home
+     */
+    public static List<Transaction> getHome() {
+        return home;
+    }
+
+    /**
+     * Gets the utilities.
+     * @return the utilities
+     */
+    public static List<Transaction> getUtilities() {
+        return utilities;
+    }
+
+    /**
+     * Gets the car.
+     * @return the car
+     */
+    public static List<Transaction> getCar() {
+        return car;
+    }
+
+    /**
+     * Gets the travel.
+     * @return the travel
+     */
+    public static List<Transaction> getTravel() {
+        return travel;
+    }
+
+    /**
+     * Gets the others.
+     * @return the others
+     */
+    public static List<Transaction> getOthers() {
+        return others;
+    }
+
+    /**
+     * Gets the reports.
+     * 
+     * @param start
+     *            the start
+     * @param end
+     *            the end
+     * @return the reports
+     */
+    public static ArrayList<String> getReports(Date start, Date end) {
+        storeDate(start, end);
+        return spendingCategoryReport(getDateRange(getFullList()));
+
+    }
 }
-
-
-
