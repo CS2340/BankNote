@@ -1,22 +1,24 @@
 package com.example.banknote.view;
 
+import iView.iAccountMainScreen;
+
 import java.text.NumberFormat;
 
-import com.example.banknote.R;
-import com.example.banknote.model.AccountSingle;
-
-import android.os.Bundle;
+import presenter.AccountMainPresenter;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.banknote.R;
+
 /**
  * The Class FinancialAccountMain.
  */
-public class FinancialAccountMain extends Activity {
+public class FinancialAccountMain extends Activity implements iAccountMainScreen {
 
     /** The btn add trans. */
     private Button btnAddTrans;
@@ -24,17 +26,13 @@ public class FinancialAccountMain extends Activity {
     /** The text. */
     private String text = "";
     
-    /** The display name. */
-    private String displayName;
-    
-    /** The balance. */
-    private String balance;
-
     /** The display name tv. */
     private TextView displayNameTV;
     
     /** The balance tv. */
     private TextView balanceTV;
+    
+    private AccountMainPresenter presenter;
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -43,19 +41,20 @@ public class FinancialAccountMain extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_financial_account_main);
-
-        displayName = AccountSingle.getCurrentAccount().getDisplayName();
-
-        NumberFormat baseFormat = NumberFormat.getCurrencyInstance();
-        balance = baseFormat.format(AccountSingle.getCurrentAccount()
-                .getBalance());
-
         displayNameTV = (TextView) findViewById(R.id.displayt_name_textView);
         balanceTV = (TextView) findViewById(R.id.balance_textView);
         btnAddTrans = (Button) findViewById(R.id.add_new_trans);
+       
+        presenter = new AccountMainPresenter(this);
+        
 
-        displayNameTV.setText(String.valueOf(displayName));
-        balanceTV.setText(String.valueOf(balance));
+        btnAddTrans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            	presenter.addTransClicked();
+            }
+        });
+        
     }
 
     /* (non-Javadoc)
@@ -65,14 +64,7 @@ public class FinancialAccountMain extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.financial_account_main, menu);
-
-        btnAddTrans.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                text = "com.example.banknote.view.AddTransScreen";
-                goNextActivity(view);
-            }
-        });
+        
         return true;
     }
 
@@ -96,5 +88,26 @@ public class FinancialAccountMain extends Activity {
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), Dashboard.class));
     }
+
+	@Override
+	public void setDisplayName(String accName) 
+	{
+		displayNameTV.setText(accName);
+	}
+
+	@Override
+	public void setBalance(double bal) 
+	{
+	    NumberFormat baseFormat = NumberFormat.getCurrencyInstance();
+	    String balance = baseFormat.format(bal);
+		balanceTV.setText(String.valueOf(balance));	
+	}
+
+	@Override
+	public void gotoAddTrans() 
+	{
+		 startActivity(new Intent(getApplicationContext(), AddTransScreen.class));
+		 finish();
+	}
 
 }

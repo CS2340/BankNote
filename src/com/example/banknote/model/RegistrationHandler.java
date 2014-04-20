@@ -1,37 +1,15 @@
 package com.example.banknote.model;
 
-//import java.util.List;
+import iModel.iRegisterModel;
 
-//import com.db4o.ObjectContainer;
-//import com.db4o.query.Predicate;
+
+
 
 /**
- * The Class RegisterHandler.
+ * The Class RegisterPresenter.
  */
-public class RegisterHandler {
-
-    // public static boolean store(String name, String password)
-    // {
-    // ObjectContainer db = DBSingle.getInstance().getDB();
-    //
-    //
-    // List<User> customers = db.query(new Predicate<User>()
-    // {
-    // public boolean match(User cust)
-    // {
-    // return cust.getName().equals("Gary");
-    // }
-    // });
-    // User cu = customers.get(0); // get first returned Customer - should only
-    // be one
-    // cu.getAddress().setStreet("2 Second Street");
-    // db.set(cu);
-    //
-    //
-    //
-    //
-    // return true;
-    // }
+public class RegistrationHandler implements iRegisterModel
+{
 
     /**
      * Store a name and password in database.
@@ -42,7 +20,7 @@ public class RegisterHandler {
      *            the password
      * @return true, if successful
      */
-    public static boolean store(String name, String password) {
+    public boolean store(String name, String password) {
         if (isValidName(name) && isValidPassword(password)) {
             CredentialStore.add(name, password);
             return true;

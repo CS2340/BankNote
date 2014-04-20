@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
-import com.example.banknote.model.DateSingle;
-
 /**
  * The Class DatePickerFragment.
  */
@@ -50,7 +48,17 @@ public class DatePickerFragment extends DialogFragment implements
 
         @SuppressWarnings("deprecation")
         Date d = new Date(this.year, this.month, this.day);
-        DateSingle.getInstance().setSelectedtDate(d);
+        if (ReportActivity.startDateSelected)
+        {
+        	ReportActivity.startDate = d;
+        	ReportActivity.displayStart.setText(d.toString());
+        	
+        }
+        else
+        {
+        	ReportActivity.endDate = d;
+        	ReportActivity.displayEnd.setText(d.toString());
+        }
 
     }
 

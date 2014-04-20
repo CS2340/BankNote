@@ -1,12 +1,14 @@
 package com.example.banknote.model;
 
+import iModel.iReportModel;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * The Class SpendingCategoryReport.
  */
-public class SpendingCategoryReport {
+public class SpendingCategoryReport implements iReportModel {
     
     /** The u. */
     private User u;
@@ -39,7 +41,12 @@ public class SpendingCategoryReport {
 
     }
 
-    /**
+    public SpendingCategoryReport() 
+    {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Gets the cat array.
      * 
      * @return the cat array
@@ -58,9 +65,6 @@ public class SpendingCategoryReport {
                             }
                         }
                     }
-                    // }
-                    // }
-
                 }
             }
         }
@@ -87,5 +91,16 @@ public class SpendingCategoryReport {
         }
         total.addToAmount(-t.getAmount()); // negative is important
     }
+
+	@Override
+	public void setDates(Date aStart, Date anEnd) 
+	{
+        u = UserSingle.getCurrentUser();
+        this.start = aStart;
+        this.end = anEnd;
+        entries = new ArrayList<ReportEntry>();
+        total = new ReportEntry("Total");
+        entries.add(total);
+	}
 
 }

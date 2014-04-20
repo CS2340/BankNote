@@ -1,14 +1,17 @@
 package com.example.banknote.model;
 
+import iModel.iAddFinAccountModel;
+
 import java.util.ArrayList;
 
 /**
  * The Class AddAccountHandler.
  */
-public class AddAccountHandler {
+public class AddAccountHandler implements iAddFinAccountModel 
+{
     
     /** The accounts. */
-    private static ArrayList<Account> accounts;
+    private ArrayList<Account> accounts;
 
     /**
      * Checks if is valid name.
@@ -16,7 +19,7 @@ public class AddAccountHandler {
      * @param name the name
      * @return true, if is valid name
      */
-    public static boolean isValidName(String name) {
+    public  boolean isValidName(String name) {
         return !(name == null || name.equals(""));
     }
 
@@ -29,7 +32,7 @@ public class AddAccountHandler {
      *            the display name
      * @return true, if successful
      */
-    public static boolean nameAlreadyExists(String fullName, String displayName) {
+    public  boolean nameAlreadyExists(String fullName, String displayName) {
         if (accounts == null) {
             return false;
         }
@@ -53,7 +56,7 @@ public class AddAccountHandler {
      *            the ir
      * @return true, if is valid interest rate
      */
-    public static boolean isValidInterestRate(String ir) {
+    public  boolean isValidInterestRate(String ir) {
         if ((ir == null || ir.equals(""))) {
             return true;
         }
@@ -70,7 +73,7 @@ public class AddAccountHandler {
      *            the amount
      * @return true, if is valid amount
      */
-    public static boolean isValidAmount(String amount) {
+    public  boolean isValidAmount(String amount) {
         if (amount == null || amount.equals("")) {
             return false;
         }
@@ -90,7 +93,7 @@ public class AddAccountHandler {
      * @param interestRate
      *            the interest rate
      */
-    public static void addAccount(String fullName, String displayName,
+    public  void addAccount(String fullName, String displayName,
             String balance, String interestRate) {
         double balanceDouble = Double.parseDouble(balance);
         String newDisplayName = displayName; 

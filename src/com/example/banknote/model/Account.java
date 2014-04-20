@@ -191,4 +191,9 @@ public class Account implements Comparable<Account> {
         trans.add(newTrans);
 
     }
+        
+    public String toString()
+    {
+    	return displayName;
+    }
 }

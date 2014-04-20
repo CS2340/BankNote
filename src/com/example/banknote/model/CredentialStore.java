@@ -8,7 +8,8 @@ import com.db4o.query.Predicate;
 /**
  * The Class CredentialStore.
  */
-public class CredentialStore {
+public class CredentialStore 
+{
     
     /** The db. */
     private static ObjectContainer db;
@@ -21,7 +22,8 @@ public class CredentialStore {
      * @param password
      *            the password
      */
-    public static void add(String name, String password) {
+    public static void add(String name, String password) 
+    {
         User u = new User(name, password);
         DB.update(u);
     }

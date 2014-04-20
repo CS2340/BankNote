@@ -1,9 +1,11 @@
 package com.example.banknote.model;
 
+import iModel.iLoginModel;
+
 /**
  * The Class LoginHandler.
  */
-public class LoginHandler {
+public class LoginHandler implements iLoginModel {
     
     /**
      * Sets the up default credentials.
@@ -21,7 +23,7 @@ public class LoginHandler {
      *            the password
      * @return true, if successful
      */
-    public static boolean attemptLogin(String name, String password) {
+    public boolean attemptLogin(String name, String password) {
         // Adds default admin account to list
         setUpDefaultCredentials();
         if (CredentialStore.containsNameAndPassword(name, password)) {
@@ -41,7 +43,7 @@ public class LoginHandler {
      *            the name
      * @return the user
      */
-    public static User getUser(String name) {
+    public User getUser(String name) {
         return CredentialStore.getUser(name);
     }
 }

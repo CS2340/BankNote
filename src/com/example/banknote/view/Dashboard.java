@@ -1,7 +1,11 @@
 package com.example.banknote.view;
 
+import iView.iDashboardActivity;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import presenter.DashboarPresenter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,14 +22,17 @@ import android.widget.Toast;
 import com.example.banknote.R;
 import com.example.banknote.model.Account;
 import com.example.banknote.model.AccountSingle;
+import com.example.banknote.model.User;
 import com.example.banknote.model.UserSingle;
 
 /**
  * The Class Dashboard.
  */
-public class Dashboard extends Activity {
+public class Dashboard extends Activity implements iDashboardActivity{
     
-    /** The button to view acc. */
+    private DashboarPresenter presenter;
+	
+	/** The button to view acc. */
     private Button btnViewAcc;
     
     /** The button to add a fin. acc. */
@@ -42,26 +49,28 @@ public class Dashboard extends Activity {
 
     // Spinner helper to retrieve the selected Account as String
     /** The selected account. */
-    private String selectedAccount = "";
+    private Account selectedAccount = null;
 
     /** The list. */
-    List<String> list = new ArrayList<String>();
+    List<Account> list = new ArrayList<Account>();
     
     /** The adapter. */
-    ArrayAdapter<String> adapter;
+    ArrayAdapter<Account> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
+        presenter = new DashboarPresenter(this);
+        
         btnViewAcc = (Button) findViewById(R.id.view_fin_account);
         btnAddFinAcc = (Button) findViewById(R.id.finacc_add_button);
         btnReports = (Button) findViewById(R.id.goto_reports_button);
         btnReports.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),
-                        SelectDateActivity.class));
+            public void onClick(View v) 
+            {
+                presenter.reportClicked();
             }
         });
 
@@ -77,15 +86,9 @@ public class Dashboard extends Activity {
 
         findViewById(R.id.view_fin_account).setOnClickListener(
                 new View.OnClickListener() {
-                    @Override
+                    @Override                                                             
                     public void onClick(View view) {
-                        if (attemptToView()) {
-                            text = "com.example.banknote.view.FinancialAccountMain";
-                            goNextActivity(view);
-                        } else {
-                            popToast("You have no account, please create one!");
-                        }
-
+                    	 presenter.viewAccountsClicked();	
                     }
                 });
 
@@ -93,28 +96,15 @@ public class Dashboard extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        text = "com.example.banknote.view.AddFinAccount";
-                        goNextActivity(view);
+                        presenter.createAccountClicked();
+                    	
+                    	//text = "com.example.banknote.view.AddFinAccount";
+
                     }
                 });
 
     }
 
-    /**
-     * Attempt to view.
-     * 
-     * @return true, if successful
-     */
-    private boolean attemptToView() {
-        selectedAccount = (String) spinner.getSelectedItem();
-        popToast(selectedAccount);
-        if (UserSingle.getCurrentUser().getAccountByDisplay(selectedAccount) != null) {
-            AccountSingle.setCurrentAccount(UserSingle.getCurrentUser()
-                    .getAccountByDisplay(selectedAccount));
-            return true;
-        }
-        return false;
-    }
 
     // Initialize the options in spinner with Accounts List in User
     /**
@@ -122,15 +112,9 @@ public class Dashboard extends Activity {
      */
     private void spinnerUpdate() {
 
-        // Initialize the list with all the accounts in user by DisplayName
-
-        for (Account a : UserSingle.getCurrentUser().getAccounts()) {
-            list.add(a.getDisplayName());
-        }
-
         // Create an ArrayAdapter using the string array and a default spinner
         // layout
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<Account>(this,
                 android.R.layout.simple_spinner_item, list);
 
         // Specify the layout to use when the list of choices appears
@@ -150,7 +134,6 @@ public class Dashboard extends Activity {
 
         // Update the selectedAccount with the string of DisplayName
         CustomOnItemSelectedListener.getSelected(selectedAccount);
-        // selectedAccountIndex = list.indexOf(selectedAccount);
 
     }
 
@@ -195,4 +178,45 @@ public class Dashboard extends Activity {
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), LoginScreen.class));
     }
+
+	@Override
+	public void setAccountList(List<Account> accounts) 
+	{
+		list = accounts;		
+	}
+
+	@Override
+	public Account getAccount() 
+	{
+		return (Account) spinner.getSelectedItem();
+	}
+
+	@Override
+	public void gotoViewAccounts() 
+	{
+		 startActivity(new Intent(getApplicationContext(), FinancialAccountMain.class));
+		 finish();
+	}
+
+	@Override
+	public void displayMessage(String string) 
+	{
+		popToast(string);
+	}
+
+	@Override
+	public void gotoCreateAccount() 
+	{
+		 startActivity(new Intent(getApplicationContext(), AddFinAccount.class));
+		 finish();
+	}
+
+	@Override
+	public void gotoReports() 
+	{
+		startActivity(new Intent(getApplicationContext(),
+                ReportActivity.class));
+		finish();
+	}
+
 }
