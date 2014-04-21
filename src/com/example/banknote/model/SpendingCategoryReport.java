@@ -37,7 +37,7 @@ public class SpendingCategoryReport implements iReportModel {
         this.end = anEnd;
         entries = new ArrayList<ReportEntry>();
         total = new ReportEntry("Total");
-        entries.add(total);
+        entries.add(entries.size(), total);
 
     }
 
@@ -70,6 +70,36 @@ public class SpendingCategoryReport implements iReportModel {
         }
         return entries;
     }
+    
+
+	/**
+     * Gets the cat array by account
+     * 
+     * @return the cat array
+     */
+    public ArrayList<ReportEntry> getCatArrayByAccount(Account a) {
+        if (u.getAccounts() != null) {
+        	for (Account cur : u.getAccounts()) {
+        		if ( cur.getDisplayName().equals(a.getDisplayName())){
+                	ArrayList<Transaction> trans = (ArrayList<Transaction>) cur
+                            .getTrans();
+                    
+                    for (Transaction t : trans){
+                    	if (!t.getIsIncome()) {
+                    		Date date = t.getRecordedTime();
+                    		if (date.after(start) && date.before(end)) 
+                    		{
+                    			updateEntries(t);
+                            }
+                        }
+                    }
+        		}
+        	}  
+               
+        }
+        return entries;
+    }
+        
 
     /**
      * Update entries.

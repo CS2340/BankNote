@@ -2,78 +2,117 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical" >
 
-
-
-    <TextView
-        android:id="@+id/startTextView"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/start_date"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/endTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/startTextView"
-        android:layout_marginTop="26dp"
-        android:text="@string/end_date"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/button_startDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/set_start_date" />
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/button_endDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/endTextView"
-        android:text="@string/set_end_date" />
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp" >
 
-    <Button
-        android:id="@+id/get_report_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button_endDate"
-        android:layout_toLeftOf="@+id/button_endDate"
-        android:text="@string/get_report" />
+            <TextView
+                android:id="@+id/startTextView"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="@string/start_date"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/displayStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/get_report_button"
-        android:layout_marginTop="17dp"
-        android:layout_toRightOf="@+id/startTextView"
-        android:text="@string/start_date"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/displayStart"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:text="@string/start_date"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/displayEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/displayStart"
-        android:layout_below="@+id/displayStart"
-        android:text="@string/end_date"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+            <Button
+                android:id="@+id/button_startDate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/set" />
 
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/displayEnd"
-        android:layout_marginTop="52dp" >
+        </LinearLayout>
 
-    </ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp" >
+
+            <TextView
+                android:id="@+id/endTextView"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="@string/end_date"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/displayEnd"
+               android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="@string/end_date"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Button
+                android:id="@+id/button_endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/set" />
+        </LinearLayout>
+        
+        <Spinner
+            android:id="@+id/account_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:prompt="@string/trans_type" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity = "center"
+            android:layout_marginTop="32dp" >
+
+            <Button
+                android:id="@+id/chart_button"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="@string/chart" />
+
+            <Button
+                android:id="@+id/statement_button"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="Statement" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dashboardtext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="15dp"
+            android:gravity="bottom"
+            android:text="@string/report"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/dark_purple"
+            android:textSize="30sp" />
+    </LinearLayout>
 
 </RelativeLayout>

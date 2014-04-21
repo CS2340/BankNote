@@ -4,6 +4,8 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
@@ -52,7 +54,6 @@
             android:name="com.example.banknote.view.ReportActivity"
             android:label="@string/app_name" >
         </activity>
-
         <activity
             android:name="com.example.banknote.view.AddTransScreen"
             android:label="@string/title_activity_add_trans_screen" >
@@ -60,6 +61,18 @@
         <activity
             android:name="com.example.banknote.view.FinancialAccountMain"
             android:label="@string/title_activity_financial_account_main" >
+        </activity>
+        <activity
+            android:name="com.example.banknote.view.ReportChartsActivity"
+            android:label="@string/title_activity_report_charts" >
+        </activity>
+        <activity
+            android:name="com.example.banknote.ReportChartActivity"
+            android:label="@string/title_activity_report_chart" >
+        </activity>
+        <activity
+            android:name="com.example.banknote.view.ReportStatementActivity"
+            android:label="@string/title_activity_report_statement" >
         </activity>
     </application>
 

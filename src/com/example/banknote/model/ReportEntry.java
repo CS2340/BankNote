@@ -56,7 +56,9 @@ public class ReportEntry {
      * @return String of the account class.
      */
     public String toString() {
-        String s = new String(category + "      " + Double.toString(amount));
+        String s1 = "      " + String.format("%-40s ",category);
+        String s2 = String.format(" $%9.2f",amount);
+        String s = s1 + s2;
         return s;
     }
 

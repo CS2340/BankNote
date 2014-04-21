@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
+    <issue id="HardcodedText">
+        <ignore path="res/layout/activity_reports_screen.xml" />
+    </issue>
     <issue id="NewApi">
         <ignore path="res/layout/activity_register_screen.xml" />
     </issue>
     <issue id="UselessParent">
         <ignore path="res/layout/activity_add_trans_screen.xml" />
+        <ignore path="res/layout/activity_reports_screen.xml" />
     </issue>
 </lint>

@@ -18,11 +18,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.banknote.R;
+import com.example.banknote.model.Account;
 import com.example.banknote.model.ReportEntry;
+import com.example.banknote.model.ReportSingle;
+import com.example.banknote.model.Reports;
+import com.example.banknote.model.UserSingle;
 
 /**
  * The Class SelectDateActivity.
@@ -35,8 +40,12 @@ public class ReportActivity extends FragmentActivity implements iReportView {
     static Date endDate;
     static Date startDate;
 	
-	/** The report button. */
-    Button reportButton;
+    
+    /** The chart button. */
+    Button chartButton;
+    
+    /** The statement button. */
+    Button statementButton;
     
     /** The start button. */
     Button startButton;
@@ -69,7 +78,24 @@ public class ReportActivity extends FragmentActivity implements iReportView {
     ListAdapter listAdapter;
     
     /** The list. */
-    ArrayList<ReportEntry> list;
+    ArrayList<ReportEntry> reportList;
+    
+    /** The spinner. */
+    private Spinner spinner;
+    
+    /** The text. */
+    private String text = "";
+
+    // Spinner helper to retrieve the selected Account as String
+    /** The selected account. */
+    private Account selectedAccount = null;
+
+    /** The list. */
+    List<Account> list = new ArrayList<Account>();
+    
+    /** The adapter. */
+    ArrayAdapter<Account> adapter;
+    
 
     /**
      * Method to be executed upon creation of this screen.
@@ -89,15 +115,16 @@ public class ReportActivity extends FragmentActivity implements iReportView {
         displayEnd = (TextView) findViewById(R.id.displayEnd);
         
         presenter = new ReportPresenter(this);
+        
+        spinner = (Spinner) findViewById(R.id.account_spinner);
 
-        reportButton = (Button) findViewById(R.id.get_report_button);
-        reportButton.setOnClickListener(new OnClickListener() 
-        {
-            public void onClick(View v) {
+        /*
+         * selectedType Spinner
+         */
+        spinnerUpdate();
 
-                presenter.reportButtonClicked();
-            }
-        });
+        // Spinner item selection Listener
+        addListenerOnSpinnerItemSelection();
 
         startButton = (Button) findViewById(R.id.button_startDate);
         startButton.setOnClickListener(new OnClickListener() {
@@ -105,7 +132,9 @@ public class ReportActivity extends FragmentActivity implements iReportView {
                 
             	startDateSelected = true;
             	showDatePickerDialog(v);
+            
             }
+            
         });
 
         endButton = (Button) findViewById(R.id.button_endDate);
@@ -113,7 +142,26 @@ public class ReportActivity extends FragmentActivity implements iReportView {
             public void onClick(View v) {
                 startDateSelected = false;
         	  	showDatePickerDialog(v);
+        	  	
 
+            }
+        });
+        
+        chartButton = (Button) findViewById(R.id.chart_button);
+        chartButton.setOnClickListener(new OnClickListener() 
+        {
+            public void onClick(View v) {
+
+                presenter.reportChartsButtonClicked();
+            }
+        });
+        
+        statementButton = (Button) findViewById(R.id.statement_button);
+        statementButton.setOnClickListener(new OnClickListener() 
+        {
+            public void onClick(View v) {
+
+                presenter.reportStatementButtonClicked();
             }
         });
 
@@ -121,6 +169,58 @@ public class ReportActivity extends FragmentActivity implements iReportView {
 
 
     /**
+     * Adds the listener on spinner item selection.
+     */
+    public void addListenerOnSpinnerItemSelection() {
+        
+        CustomOnItemSelectedListener selectTypeListener = new CustomOnItemSelectedListener();
+        spinner.setOnItemSelectedListener(selectTypeListener);
+
+        // Update the selectedAccount with the string of DisplayName
+        CustomOnItemSelectedListener.getSelected(selectedAccount);
+
+    }
+
+
+ // Initialize the options in spinner with Accounts List in User
+    /**
+     * Spinner update.
+     */
+    private void spinnerUpdate() {
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        // layout
+        adapter = new ArrayAdapter<Account>(this,
+                android.R.layout.simple_spinner_item, list);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+    }
+    
+    @Override
+    public void setAccountList(List<Account> accounts) 
+	{
+		for ( Account a: accounts){
+			list.add(a);
+		}
+		Account allLableAccount = new Account("All Accounts", "All Accounts", 0, 0);
+		if (list.indexOf(allLableAccount) == -1){
+			list.add(allLableAccount);
+		}
+		
+	}
+    
+    @Override
+	public Account getAccount() 
+	{
+		return (Account) spinner.getSelectedItem();
+	}
+	
+
+	/**
      * Show date picker dialog.
      * 
      * @param v the v
@@ -133,6 +233,7 @@ public class ReportActivity extends FragmentActivity implements iReportView {
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onBackPressed()
      */
+    
     @Override
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), Dashboard.class));
@@ -152,7 +253,7 @@ public class ReportActivity extends FragmentActivity implements iReportView {
 	}
 
 	@Override
-	public void displyMessage(String message) 
+	public void displayMessage(String message) 
 	{
         Toast toast = Toast.makeText(getApplicationContext(),
                 message, Toast.LENGTH_LONG);
@@ -161,16 +262,20 @@ public class ReportActivity extends FragmentActivity implements iReportView {
 	}
 
 	@Override
-	public void displayListVeiw(List<ReportEntry> l) 
+	public void gotoChartReport(List<ReportEntry> list) 
 	{
-		list = (ArrayList<ReportEntry>) l;
-        listView = (ListView) findViewById(R.id.listView1);
-
-        listAdapter = new ArrayAdapter<ReportEntry>(this,
-                android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(listAdapter);
-    	displayEnd.setText(endDate.toString());
-    	displayStart.setText(startDate.toString());
-        
+		Reports report = new Reports(startDate, endDate, list);
+		ReportSingle.setCurrentReport(report); 
+		startActivity(new Intent(getApplicationContext(), ReportChartsActivity.class));
+		finish();
+	}
+	
+	@Override
+	public void gotoStatementReport(List<ReportEntry> list) 
+	{
+		Reports report = new Reports(startDate, endDate, list);
+		ReportSingle.setCurrentReport(report); 
+		startActivity(new Intent(getApplicationContext(), ReportStatementActivity.class));
+		finish();
 	}
 }

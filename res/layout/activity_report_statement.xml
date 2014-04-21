@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ReportStatementActivity" >
+
+    <TextView
+        android:id="@+id/displayStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/get_report_button"
+        android:layout_marginTop="17dp"
+        android:layout_toRightOf="@+id/startTextView"
+        android:text="@string/start_date"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/displayEnd"
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:layout_alignRight="@+id/displayStart"
+        android:layout_below="@+id/displayStart"
+        android:text="@string/end_date"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+     <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/displayEnd"
+        android:layout_marginTop="52dp" >
+
+    </ListView>
+
+</RelativeLayout>

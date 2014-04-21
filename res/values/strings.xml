@@ -49,4 +49,11 @@
     <string name="reports">Reports</string>
     <string name="set_start_date">Set Start Date</string>
     <string name="set_end_date">Set End Date</string>
+    <string name="title_activity_report_charts">ReportChartsActivity</string>
+    <string name="title_activity_report_chart">ReportChartActivity</string>
+    <string name="chart">Chart</string>
+    <string name="title_activity_report_statement">ReportStatementActivity</string>
+    <string name="report">REPORT</string>
+    <string name="set">Set</string>
+
 </resources>

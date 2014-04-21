@@ -1,6 +1,7 @@
 package com.example.banknote.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Synonymous with "User Account" each has a name and password.
@@ -18,6 +19,8 @@ public class User {
     
     /** The accounts. */
     private ArrayList<Account> accounts;
+    
+
 
     /*
      * ArrayList of transaction
@@ -93,7 +96,8 @@ public class User {
         this.accounts.add(anAccount);
         DB.update(this);
     }
-
+    
+    
     /**
      * Returns a list of the user's accounts.
      * 

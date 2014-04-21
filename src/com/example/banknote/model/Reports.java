@@ -74,6 +74,11 @@ public class Reports {
     
     /** The date to. */
     static Date dateTo;
+    
+    /** The report list and dates for Charts and Statement. */
+    private List<ReportEntry> list;
+    private Date fromDate;
+    private Date toDate;
 
     /**
      * Store date.
@@ -410,5 +415,51 @@ public class Reports {
         storeDate(start, end);
         return spendingCategoryReport(getDateRange(getFullList()));
 
+    }
+    
+    /**
+     * Initialize Reports object.
+     * USE FOR CHART AND STATEMENT REPORT
+     */
+    public Reports(Date from, Date to, List<ReportEntry> list)
+    {
+    	this.fromDate = from;
+    	this.toDate = to;
+    	this.list = list;
+    }
+    
+    /**
+     * Set a list to the user's report list.
+     * USE FOR CHART AND STATEMENT REPORT    !!! DO NOT DELETE, It's not a duplicate function
+     */
+    public void setReportList(List<ReportEntry> list) {
+        this.list = list;
+    }
+    
+    /**
+     * Returns the list of the user's report list.
+     * USE FOR CHART AND STATEMENT REPORT    !!! DO NOT DELETE, It's not a duplicate function
+     * @return the list of accounts
+     */
+    public List<ReportEntry> getReportList() {
+        return this.list;
+    }
+
+    /**
+     * Returns the start date of the user's report list.
+     * USE FOR CHART AND STATEMENT REPORT    !!! DO NOT DELETE, It's not a duplicate function
+     * @return the list of accounts
+     */
+    public Date getFromDate() {
+        return this.fromDate;
+    }
+    
+    /**
+     * Returns the end date of the user's report list.
+     * USE FOR CHART AND STATEMENT REPORT    !!! DO NOT DELETE, It's not a duplicate function
+     * @return the list of accounts
+     */
+    public Date getToDate() {
+        return this.toDate;
     }
 }
