@@ -43,10 +43,11 @@ public class DatePickerFragment extends DialogFragment implements
     /* (non-Javadoc)
      * @see android.app.DatePickerDialog.OnDateSetListener#onDateSet(android.widget.DatePicker, int, int, int)
      */
-    public void onDateSet(DatePicker view, int year, int month, int day) {
-        this.year = year - 1900;
-        this.month = month;
-        this.day = day;
+    @Override
+    public void onDateSet(DatePicker view, int aYear, int aMonth, int aDay) {
+        this.year = aYear - 1900;
+        this.month = aMonth;
+        this.day = aDay;
 
         @SuppressWarnings("deprecation")
         Date d = new Date(this.year, this.month, this.day);

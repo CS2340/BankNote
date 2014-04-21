@@ -3,7 +3,6 @@ package com.example.banknote.view;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Toast;
 
 /**
  * The listener interface for receiving customOnItemSelected events. The class
@@ -50,6 +49,7 @@ public class CustomOnItemSelectedListener implements OnItemSelectedListener {
      * Gets the selected.
      * 
      * @param returnString the return string
+     * @return string returnString
      */
     public static String getSelected(String returnString) {
         return returnString; //removed returnString = selectedItem; ???

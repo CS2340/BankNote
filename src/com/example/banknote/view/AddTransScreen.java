@@ -101,7 +101,6 @@ public class AddTransScreen extends Activity {
      * Spinner update.
      */
     private void spinnerUpdate() {
-        // TODO Auto-generated method stub
         // ArrayAdapter<CharSequence> adapter;
         if (isIncome) {
             // Create an ArrayAdapter using the string array and a default
