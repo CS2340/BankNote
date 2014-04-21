@@ -3,34 +3,6 @@
     android:background="@color/background"
     tools:context=".Login_screen" >
 
-    <!-- Login progress -->
-
-    <LinearLayout
-        android:id="@+id/login_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:background="@color/background"
-        android:visibility="gone" >
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp" />
-
-        <TextView
-            android:id="@+id/login_status_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif-light"
-            android:text="@string/login_progress_signing_in"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-    </LinearLayout>
-
     <!-- Login form -->
 
     <ScrollView
@@ -54,7 +26,7 @@
                 android:src="@drawable/logo_big" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/startTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/registration_filler"
@@ -72,13 +44,6 @@
             </EditText>
 
             <EditText
-                android:id="@+id/text_field_prompt_new_username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/prompt_username" />
-
-            <EditText
                 android:id="@+id/text_field_new_password_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,6 +58,13 @@
                 android:ems="10"
                 android:inputType="textPassword"
                 android:hint="@string/verify_password" />
+
+            <Button
+                android:id="@+id/button_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/register" />
 
         </LinearLayout>
     </ScrollView>

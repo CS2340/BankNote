@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/background"
+    tools:context=".FinancialAccountMain" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.36"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/displayt_name_textView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="bottom"
+                android:text="Display Name"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/dark_purple"
+                android:textSize="25sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.24"
+                android:orientation="horizontal" >
+                 
+                <TextView
+                    android:id="@+id/balance_word_textView"
+                    android:layout_width="116dp"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:text="Balance:"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/dark_purple"
+                    android:textSize="25sp" />
+                
+                <TextView
+                    android:id="@+id/balance_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:gravity="right"
+                    android:text="Balance"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/dark_purple"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_new_trans"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="goToFinAcc"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:text="@string/add_trans" />
+
+        <TextView
+            android:id="@+id/view_acc_textview"
+            android:layout_width="259dp"
+            android:layout_height="198dp"
+            android:gravity="bottom"
+            android:text="@string/view_acc"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/dark_purple"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+</RelativeLayout>

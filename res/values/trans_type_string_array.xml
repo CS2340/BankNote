@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="transaction_outcometype_array">
+        <item>Food and Drink</item>
+        <item>Shopping</item>
+        <item>Bills</item>
+        <item>Entertainment</item>
+        <item>Family and Personal</item>
+        <item>Home</item>
+        <item>Utilities</item>
+        <item>Car</item>
+        <item>Travel</item>
+        <item>Others</item>
+    </string-array>
+    
+    <string-array name="transaction_incometype_array">
+        <item>Business</item>
+        <item>Salary</item>
+        <item>Extra Income</item>
+    </string-array>
+ </resources>

@@ -26,7 +26,7 @@
             android:src="@drawable/logo_big" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/startTextView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.12"

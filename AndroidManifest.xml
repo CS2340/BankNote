@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.banknote.Welcome_screen"
+            android:name="com.example.banknote.view.WelcomeScreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,17 +23,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.banknote.Login_screen"
+            android:name="com.example.banknote.view.LoginScreen"
             android:label="@string/title_activity_login_screen"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name="com.example.banknote.Register_screen"
+            android:name="com.example.banknote.view.RegisterScreen"
             android:label="@string/title_activity_register_screen"
-            android:parentActivityName="com.example.banknote.Welcome_screen" >
+            android:parentActivityName="com.example.banknote.view.WelcomeScreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.banknote.Welcome_screen" />
+                android:value="com.example.banknote.WelcomeScreen" />
+        </activity>
+        <activity
+            android:name="com.example.banknote.view.LoginSuccess"
+            android:label="@string/title_activity_login_success"
+            android:parentActivityName="com.example.banknote.view.LoginScreen" >
+        </activity>
+        <activity
+            android:name="com.example.banknote.view.AddFinAccount"
+            android:label="@string/title_activity_fin__account__reg" >
+        </activity>
+        <activity
+            android:name="com.example.banknote.view.Dashboard"
+            android:label="@string/title_activity_dashboard" >
+        </activity>
+        <activity
+            android:name="com.example.banknote.view.ReportActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity
+            android:name="com.example.banknote.view.AddTransScreen"
+            android:label="@string/title_activity_add_trans_screen" >
+        </activity>
+        <activity
+            android:name="com.example.banknote.view.FinancialAccountMain"
+            android:label="@string/title_activity_financial_account_main" >
         </activity>
     </application>
 
