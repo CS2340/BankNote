@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import presenter.DashboarPresenter;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +13,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -22,6 +23,9 @@ import android.widget.Toast;
 import com.example.banknote.R;
 import com.example.banknote.model.Account;
 import com.example.banknote.model.AccountSingle;
+import com.example.banknote.model.ChartCodeGenerator;
+import com.example.banknote.model.DashboardModelHelper;
+import com.example.banknote.model.ReportEntry;
 import com.example.banknote.model.User;
 import com.example.banknote.model.UserSingle;
 
@@ -56,6 +60,11 @@ public class Dashboard extends Activity implements iDashboardActivity{
     
     /** The adapter. */
     ArrayAdapter<Account> adapter;
+    
+    WebView webview;
+    String content;
+    
+    private DashboardModelHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,8 @@ public class Dashboard extends Activity implements iDashboardActivity{
         setContentView(R.layout.activity_dashboard);
 
         presenter = new DashboarPresenter(this);
+        helper = new DashboardModelHelper();
+        content ="";
         
         btnViewAcc = (Button) findViewById(R.id.view_fin_account);
         btnAddFinAcc = (Button) findViewById(R.id.finacc_add_button);
@@ -102,6 +113,25 @@ public class Dashboard extends Activity implements iDashboardActivity{
 
                     }
                 });
+        
+        List<ReportEntry> inList = new ArrayList<ReportEntry>();
+        inList.add(new ReportEntry ("4"));
+        inList.get(0).addToAmount(-3.00);
+        inList.add(new ReportEntry ("Kien"));
+        inList.add(new ReportEntry ("Nghia"));
+        inList.add(new ReportEntry ("Kien"));
+        webview = (WebView) findViewById(R.id.webView1);
+        helper.getChartDataList();
+		content = ChartCodeGenerator.updateAreaChart(helper.getchartIncomeList(),helper.getchartOutcomeList());
+		//content = ChartCodeGenerator.updateAreaChart(inList,inList);
+		WebSettings webSettings = webview.getSettings();
+		webSettings.setJavaScriptEnabled(true);
+		webview.getSettings().setUseWideViewPort(true);
+		//webview.getSettings().setLoadWithOverviewMode(true);
+		webview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+		webview.setScrollbarFadingEnabled(true);
+		webview.requestFocusFromTouch();
+		webview.loadDataWithBaseURL( "file:///android_asset/", content, "text/html", "utf-8", null );
 
     }
 
@@ -218,5 +248,6 @@ public class Dashboard extends Activity implements iDashboardActivity{
                 ReportActivity.class));
 		finish();
 	}
+	
 
 }

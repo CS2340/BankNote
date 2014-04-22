@@ -47,6 +47,16 @@
             android:layout_height="wrap_content"
             android:text="View Report" />
         
+        <WebView
+        android:id="@+id/webView1"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+        
         <TextView
             android:id="@+id/dashboardtext"
             android:layout_width="match_parent"

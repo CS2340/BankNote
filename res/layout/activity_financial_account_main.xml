@@ -41,7 +41,7 @@
                  
                 <TextView
                     android:id="@+id/balance_word_textView"
-                    android:layout_width="116dp"
+                    android:layout_width="140dp"
                     android:layout_height="match_parent"
                     android:gravity="right"
                     android:text="Balance:"

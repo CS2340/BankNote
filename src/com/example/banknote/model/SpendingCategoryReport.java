@@ -37,7 +37,6 @@ public class SpendingCategoryReport implements iReportModel {
         this.end = anEnd;
         entries = new ArrayList<ReportEntry>();
         total = new ReportEntry("Total");
-        entries.add(entries.size(), total);
 
     }
 
@@ -47,7 +46,7 @@ public class SpendingCategoryReport implements iReportModel {
 	}
 
 	/**
-     * Gets the cat array.
+     * Gets the OUTCOME cat array ALL ACCOUNTS
      * 
      * @return the cat array
      */
@@ -68,6 +67,34 @@ public class SpendingCategoryReport implements iReportModel {
                 }
             }
         }
+        
+        entries.add(entries.size(), total);
+        return entries;
+    }
+    
+    /**
+     * Gets the INCOME cat array ALL ACCOUNTS
+     * 
+     * @return the cat array
+     */
+    public ArrayList<ReportEntry> getIncomeCatArrayAll() {
+        if (u.getAccounts() != null) {
+            for (Account a : u.getAccounts()) {
+                ArrayList<Transaction> trans = (ArrayList<Transaction>) a
+                        .getTrans();
+                {
+                    for (Transaction t : trans) {
+                        if (t.getIsIncome()) {
+                            Date date = t.getRecordedTime();
+                            if (date.after(start) && date.before(end)) {
+                                updateEntries(t);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        entries.add(entries.size(), total);
         return entries;
     }
     
@@ -97,6 +124,36 @@ public class SpendingCategoryReport implements iReportModel {
         	}  
                
         }
+        entries.add(entries.size(), total);
+        return entries;
+    }
+    
+    /**
+     * Gets the INCOME cat array by SELECTED ACCOUNT.
+     * 
+     * @return the cat array
+     */
+    public ArrayList<ReportEntry> getIncomeCatArrayByAccount(Account a) {
+        if (u.getAccounts() != null) {
+        	for (Account cur : u.getAccounts()) {
+        		if ( cur.getDisplayName().equals(a.getDisplayName())){
+                	ArrayList<Transaction> trans = (ArrayList<Transaction>) cur
+                            .getTrans();
+                    
+                    for (Transaction t : trans){
+                    	if (t.getIsIncome()) {
+                    		Date date = t.getRecordedTime();
+                    		if (date.after(start) && date.before(end)) 
+                    		{
+                    			updateEntries(t);
+                            }
+                        }
+                    }
+        		}
+        	}  
+               
+        }
+        entries.add(entries.size(), total);
         return entries;
     }
         
@@ -116,10 +173,18 @@ public class SpendingCategoryReport implements iReportModel {
         }
         if (!found) {
             ReportEntry newEntry = new ReportEntry(t.getType());
-            newEntry.addToAmount(-t.getAmount()); // negative is important
+            if (t.getAmount() < 0 ){
+            	newEntry.addToAmount(-t.getAmount()); // negative is important
+            } else {
+            	newEntry.addToAmount(t.getAmount());
+            }
             entries.add(newEntry);
         }
-        total.addToAmount(-t.getAmount()); // negative is important
+        if (t.getAmount() < 0 ){
+        	total.addToAmount(-t.getAmount()); // negative is important
+        } else {
+        	total.addToAmount(t.getAmount());
+        }
     }
 
 	@Override
