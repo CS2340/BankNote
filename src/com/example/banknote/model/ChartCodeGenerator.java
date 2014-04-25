@@ -19,7 +19,7 @@ public class ChartCodeGenerator {
 				+ "      google.setOnLoadCallback(drawChart);"
 				+ "      function drawChart() {"
 				+ "        var data = google.visualization.arrayToDataTable(["
-				+ "          ['Category', 'Amount'],";
+				+ "          ['Accounts', 'Balance'],";
 		datacontent="";
 		List<ReportEntry> list = ReportSingle.getCurrentReport().getReportList();
 		for (ReportEntry r : list)
@@ -33,8 +33,8 @@ public class ChartCodeGenerator {
 		footcontent=
 				  "        ]);"
 				+ "        var options = {"
-				+ "          title: 'Financial Report by Category',"
-				+ "          hAxis: {title: 'Categories', titleTextStyle: {color: 'red'}}"
+				+ "          title: 'Financial Accounts Overview',"
+				+ "          hAxis: {title: 'Financial Accounts', titleTextStyle: {color: 'red'}}"
 				+ "        };"
 				+ "        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));"
 				+ "        chart.draw(data, options);"
@@ -61,7 +61,7 @@ public class ChartCodeGenerator {
  		  +"    google.setOnLoadCallback(drawChart);"
  		  +"    function drawChart() {"
  		  +"      var data = google.visualization.arrayToDataTable(["
- 		  +"        ['Task', 'Hours per Day'],";
+ 		  +"        ['Categories', 'Amount'],";
  		datacontent=""; 
 		ArrayList<ReportEntry> list = (ArrayList<ReportEntry>) ReportSingle.getCurrentReport().getReportList();
  		 for (ReportEntry r : list)
