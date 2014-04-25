@@ -19,7 +19,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="300dp"
             android:layout_weight="0.36"
             android:orientation="vertical" >
 
@@ -63,6 +63,15 @@
 
         </LinearLayout>
 
+        <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:gravity = "top"
+        android:layout_alignParentTop="true"
+         >
+            
+        </ListView>
         <Button
             android:id="@+id/add_new_trans"
             android:layout_width="wrap_content"
@@ -75,8 +84,8 @@
 
         <TextView
             android:id="@+id/view_acc_textview"
-            android:layout_width="259dp"
-            android:layout_height="198dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:gravity="bottom"
             android:text="@string/view_acc"
             android:textAppearance="?android:attr/textAppearanceLarge"

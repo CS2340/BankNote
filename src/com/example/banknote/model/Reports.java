@@ -76,7 +76,7 @@ public class Reports {
     static Date dateTo;
     
     /** The report list and dates for Charts and Statement. */
-    private List<ReportEntry> list;
+    private List<ReportEntry> list = new ArrayList<ReportEntry>();
     private Date fromDate;
     private Date toDate;
 
@@ -430,7 +430,7 @@ public class Reports {
     
     /**
      * Set a list to the user's report list.
-     * USE FOR CHART AND STATEMENT REPORT    !!! DO NOT DELETE, It's not a duplicate function
+     * USE FOR CHART AND STATEMENT REPORT    !!! DO NOT DELETE, It's not a duplicated function
      */
     public void setReportList(List<ReportEntry> list) {
         this.list = list;
@@ -438,7 +438,7 @@ public class Reports {
     
     /**
      * Returns the list of the user's report list.
-     * USE FOR CHART AND STATEMENT REPORT    !!! DO NOT DELETE, It's not a duplicate function
+     * USE FOR CHART AND STATEMENT REPORT    !!! DO NOT DELETE, It's not a duplicated function
      * @return the list of accounts
      */
     public List<ReportEntry> getReportList() {

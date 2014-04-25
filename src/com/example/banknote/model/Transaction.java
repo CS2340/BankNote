@@ -193,5 +193,12 @@ public class Transaction {
     public User getTargetUser() {
         return this.targetUser;
     }
+    
+    public String toString() {
+        String s1 = "      " + String.format("%-40s ", description);
+        String s2 = String.format(" $%9.2f",amount);
+        String s = s1 + s2;
+        return s;
+    }
 
 }

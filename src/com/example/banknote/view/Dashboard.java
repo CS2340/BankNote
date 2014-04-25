@@ -113,26 +113,19 @@ public class Dashboard extends Activity implements iDashboardActivity{
 
                     }
                 });
-        
-        List<ReportEntry> inList = new ArrayList<ReportEntry>();
-        inList.add(new ReportEntry ("4"));
-        inList.get(0).addToAmount(-3.00);
-        inList.add(new ReportEntry ("Kien"));
-        inList.add(new ReportEntry ("Nghia"));
-        inList.add(new ReportEntry ("Kien"));
         webview = (WebView) findViewById(R.id.webView1);
-        helper.getChartDataList();
-		content = ChartCodeGenerator.updateAreaChart(helper.getchartIncomeList(),helper.getchartOutcomeList());
-		//content = ChartCodeGenerator.updateAreaChart(inList,inList);
-		WebSettings webSettings = webview.getSettings();
-		webSettings.setJavaScriptEnabled(true);
-		webview.getSettings().setUseWideViewPort(true);
-		//webview.getSettings().setLoadWithOverviewMode(true);
-		webview.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-		webview.setScrollbarFadingEnabled(true);
-		webview.requestFocusFromTouch();
-		webview.loadDataWithBaseURL( "file:///android_asset/", content, "text/html", "utf-8", null );
-
+        if ( UserSingle.getCurrentUser().getAccounts().size() > 0){
+    		helper.getChartDataList();
+    		content = ChartCodeGenerator.updateColumnsChart();
+    		WebSettings webSettings = webview.getSettings();
+    	    webSettings.setJavaScriptEnabled(true);
+    	    webSettings.setLoadWithOverviewMode(true);
+    	    webview.requestFocusFromTouch();
+    	    webview.loadDataWithBaseURL( "file:///android_asset/", content, "text/html", "utf-8", null );
+        } else {
+        	webview.setVisibility(View.INVISIBLE);
+        }
+        
     }
 
 

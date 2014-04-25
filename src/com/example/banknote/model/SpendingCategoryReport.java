@@ -4,6 +4,7 @@ import iModel.iReportModel;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * The Class SpendingCategoryReport.
@@ -50,7 +51,8 @@ public class SpendingCategoryReport implements iReportModel {
      * 
      * @return the cat array
      */
-    public ArrayList<ReportEntry> getCatArray() {
+    @Override
+    public ArrayList<ReportEntry> getOutcomeCatArrayAll() {
         if (u.getAccounts() != null) {
             for (Account a : u.getAccounts()) {
                 ArrayList<Transaction> trans = (ArrayList<Transaction>) a
@@ -104,7 +106,7 @@ public class SpendingCategoryReport implements iReportModel {
      * 
      * @return the cat array
      */
-    public ArrayList<ReportEntry> getCatArrayByAccount(Account a) {
+    public ArrayList<ReportEntry> getOutcomeCatArrayByAccount(Account a) {
         if (u.getAccounts() != null) {
         	for (Account cur : u.getAccounts()) {
         		if ( cur.getDisplayName().equals(a.getDisplayName())){
@@ -167,7 +169,11 @@ public class SpendingCategoryReport implements iReportModel {
         boolean found = false;
         for (ReportEntry entry : entries) {
             if (entry.getCategory().equals(t.getType())) {
-                entry.addToAmount(-t.getAmount()); // negative is important
+            	if (t.getAmount() < 0 ){
+            		entry.addToAmount(-t.getAmount()); // negative is important
+            	} else {
+            		entry.addToAmount(t.getAmount());
+                }
                 found = true;
             }
         }
@@ -195,7 +201,9 @@ public class SpendingCategoryReport implements iReportModel {
         this.end = anEnd;
         entries = new ArrayList<ReportEntry>();
         total = new ReportEntry("Total");
-        entries.add(total);
+        //entries.add(total);
 	}
+
+
 
 }

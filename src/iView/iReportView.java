@@ -23,5 +23,9 @@ public interface iReportView {
 	void gotoChartReport(List<ReportEntry> list);
 	
 	void gotoStatementReport(List<ReportEntry> list);
+	
+	boolean getIsRadioChecked();
+		
+	boolean getIsIncome();
 
 }

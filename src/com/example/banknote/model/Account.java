@@ -189,7 +189,16 @@ public class Account implements Comparable<Account> {
      */
     public void addNewTrans(Transaction newTrans) {
         trans.add(newTrans);
+        DB.update(this);
 
+    }
+    
+    public void setIntBalacce(double amount) {
+        String initBalance = "Initial Balance";
+        Transaction initialTransaction = new Transaction(initBalance,
+                initBalance, true, amount);
+        trans.add(initialTransaction);
+        DB.update(this);
     }
         
     public String toString()

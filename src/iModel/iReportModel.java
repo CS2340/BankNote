@@ -12,7 +12,9 @@ public interface iReportModel
 
 	void setDates(Date start, Date end);
 
-	List<ReportEntry> getCatArray();
-	List<ReportEntry> getCatArrayByAccount(Account a);
+	List<ReportEntry> getOutcomeCatArrayAll();
+	List<ReportEntry> getIncomeCatArrayAll();
+	List<ReportEntry> getOutcomeCatArrayByAccount(Account a);
+	List<ReportEntry> getIncomeCatArrayByAccount(Account a);
 
 }

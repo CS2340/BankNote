@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -70,6 +71,14 @@ public class ReportActivity extends FragmentActivity implements iReportView {
     
     /** The end set. */
     boolean endSet = false;
+    
+ // this variable to check either income or outcome radio buttons is checked
+    /** The is radio checked. */
+    private boolean isRadioChecked = false;
+    
+    /** The is income. */
+    private boolean isIncome = false;
+    
     // For next step
     /** The list view. */
     ListView listView;
@@ -160,12 +169,40 @@ public class ReportActivity extends FragmentActivity implements iReportView {
         statementButton.setOnClickListener(new OnClickListener() 
         {
             public void onClick(View v) {
-
-                presenter.reportStatementButtonClicked();
+               presenter.reportStatementButtonClicked();
             }
         });
 
     }
+    
+    /**
+     * On radio button clicked.
+     * 
+     * @param view
+     *            the view
+     */
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.radio_income:
+                if (checked) {
+                    // income are the best
+                    isIncome = true;
+                    isRadioChecked = true;
+                }
+                break;
+            case R.id.radio_outcome:
+                if (checked) {
+                    // outcome rule
+                    isIncome = false;
+                    isRadioChecked = true;
+                }
+                break;
+        }
+    }
+
 
 
     /**
@@ -218,6 +255,16 @@ public class ReportActivity extends FragmentActivity implements iReportView {
 	{
 		return (Account) spinner.getSelectedItem();
 	}
+    
+    @Override
+    public boolean getIsRadioChecked(){
+    	return isRadioChecked;
+    }
+    
+    @Override
+    public boolean getIsIncome(){
+    	return this.isIncome;
+    }
 	
 
 	/**
@@ -278,4 +325,6 @@ public class ReportActivity extends FragmentActivity implements iReportView {
 		startActivity(new Intent(getApplicationContext(), ReportStatementActivity.class));
 		finish();
 	}
+	
+	
 }

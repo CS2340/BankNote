@@ -121,6 +121,9 @@ public class AddAccountHandler implements iAddFinAccountModel
 
         // Set initial balance for the new account (Transaction)
         account.getHistory().setIntBalacce(balanceDouble);
+        
+        account.setIntBalacce(balanceDouble);
+        
     }
 
 }

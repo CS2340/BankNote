@@ -31,9 +31,6 @@ public class AddTransScreen extends Activity implements iAddTransView {
 	List<String> expenseTypes = null;
 
 
-    /** The is income. */
-    private boolean isIncome = false;
-
     /** The amount et. */
     private EditText amountET;
     
@@ -49,6 +46,9 @@ public class AddTransScreen extends Activity implements iAddTransView {
     // this variable to check either income or outcome radio buttons is checked
     /** The is radio checked. */
     private boolean isRadioChecked = false;
+    
+    /** The is income. */
+    private boolean isIncome = false;
 
     /** The adapter. */
     ArrayAdapter<String> adapter;

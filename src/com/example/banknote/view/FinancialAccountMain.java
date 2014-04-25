@@ -3,6 +3,8 @@ package com.example.banknote.view;
 import iView.iAccountMainScreen;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import presenter.AccountMainPresenter;
 import android.app.Activity;
@@ -10,10 +12,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.banknote.R;
+import com.example.banknote.model.ReportEntry;
+import com.example.banknote.model.Transaction;
+import com.example.banknote.model.TransactionsReport;
 
 /**
  * The Class FinancialAccountMain.
@@ -33,6 +41,17 @@ public class FinancialAccountMain extends Activity implements iAccountMainScreen
     private TextView balanceTV;
     
     private AccountMainPresenter presenter;
+    
+    private TransactionsReport reportHandler = new TransactionsReport() ;
+    
+    /** The list view. */
+    ListView listView;
+    
+    /** The list adapter. */
+    ListAdapter listAdapter;
+    
+    /** The list. */
+    private ArrayList<Transaction> list;
 
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
@@ -47,6 +66,7 @@ public class FinancialAccountMain extends Activity implements iAccountMainScreen
        
         presenter = new AccountMainPresenter(this);
         
+        
 
         btnAddTrans.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +74,8 @@ public class FinancialAccountMain extends Activity implements iAccountMainScreen
             	presenter.addTransClicked();
             }
         });
+        
+        getRecentTransactionReport();
         
     }
 
@@ -92,7 +114,7 @@ public class FinancialAccountMain extends Activity implements iAccountMainScreen
 	@Override
 	public void setDisplayName(String accName) 
 	{
-		displayNameTV.setText(accName);
+		displayNameTV.setText("Account: "+accName);
 	}
 
 	@Override
@@ -108,6 +130,17 @@ public class FinancialAccountMain extends Activity implements iAccountMainScreen
 	{
 		 startActivity(new Intent(getApplicationContext(), AddTransScreen.class));
 		 finish();
+	}
+	
+	private void getRecentTransactionReport(){
+		
+		this.list = (ArrayList<Transaction>) reportHandler.getRecentTransactionsByAccount(10);
+		listView = (ListView) findViewById(R.id.listView1);
+
+        listAdapter = new ArrayAdapter<Transaction>(this,
+                android.R.layout.simple_list_item_1, list);
+        listView.setAdapter(listAdapter);
+		
 	}
 
 }

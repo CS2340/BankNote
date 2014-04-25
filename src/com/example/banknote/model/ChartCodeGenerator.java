@@ -1,5 +1,6 @@
 package com.example.banknote.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChartCodeGenerator {
@@ -19,7 +20,7 @@ public class ChartCodeGenerator {
 				+ "      function drawChart() {"
 				+ "        var data = google.visualization.arrayToDataTable(["
 				+ "          ['Category', 'Amount'],";
-		
+		datacontent="";
 		List<ReportEntry> list = ReportSingle.getCurrentReport().getReportList();
 		for (ReportEntry r : list)
 		{
@@ -32,7 +33,7 @@ public class ChartCodeGenerator {
 		footcontent=
 				  "        ]);"
 				+ "        var options = {"
-				+ "          title: 'Spending Report by Category',"
+				+ "          title: 'Financial Report by Category',"
 				+ "          hAxis: {title: 'Categories', titleTextStyle: {color: 'red'}}"
 				+ "        };"
 				+ "        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));"
@@ -61,8 +62,9 @@ public class ChartCodeGenerator {
  		  +"    function drawChart() {"
  		  +"      var data = google.visualization.arrayToDataTable(["
  		  +"        ['Task', 'Hours per Day'],";
- 		 List<ReportEntry> list = ReportSingle.getCurrentReport().getReportList();
- 			for (ReportEntry r : list)
+ 		datacontent=""; 
+		ArrayList<ReportEntry> list = (ArrayList<ReportEntry>) ReportSingle.getCurrentReport().getReportList();
+ 		 for (ReportEntry r : list)
  			{
  				if (!r.getCategory().equals("Total"))
  				{
@@ -72,7 +74,7 @@ public class ChartCodeGenerator {
  			}
  		footcontent="      ]);"
  		  +"    var options = {"
- 		  +"       title: 'My Daily Activities',"
+ 		  +"       title: 'Financial Report by Category',"
  		  +"        pieHole: 0.4,"
  		  +"      };"
  		  +"     var chart = new google.visualization.PieChart(document.getElementById('donutchart'));"

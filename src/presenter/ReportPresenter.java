@@ -3,6 +3,7 @@ package presenter;
 import iModel.iReportModel;
 import iView.iReportView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,24 +37,39 @@ public class ReportPresenter
 		Date start = view.getStartDate();
     	Date end = view.getEndDate();
     	a = view.getAccount();
+    	boolean isRadioChecked = view.getIsRadioChecked();
+    	boolean isIncome = view.getIsIncome();
     	
 		if (start == null || end == null) 
 		{
             String message = "Must select dates";
             view.displayMessage(message);
         }  
+		
+		else if (!isRadioChecked)
+        {
+        	view.displayMessage("Check income or expense.");
+        } 
 		// (dates are set)
     	else if (a == null){
     		view.displayMessage("Select account to Report.");
     	} else {
     		model.setDates(start, end);
+    		List<ReportEntry> list = new ArrayList<ReportEntry>();
     		if ( a.getDisplayName().equals("All Accounts")){
-    			List<ReportEntry> list = model.getCatArray();
-        		view.gotoStatementReport(list);
-    		} else {
-    			List<ReportEntry> list = model.getCatArrayByAccount(a);
-        		view.gotoStatementReport(list);
+    			if (isIncome){
+    				list = model.getIncomeCatArrayAll();
+    			} else {
+    				list = model.getOutcomeCatArrayAll();
+    			}        		
+    		} else {   			
+    			if (isIncome){
+    				list = model.getIncomeCatArrayByAccount(a);
+    			} else {
+    				list = model.getIncomeCatArrayByAccount(a);
+    			}
     		}
+    		view.gotoStatementReport(list);
     		
     	}
 	
@@ -64,24 +80,36 @@ public class ReportPresenter
 		Date start = view.getStartDate();
     	Date end = view.getEndDate();
     	a = view.getAccount();
+    	boolean isRadioChecked = view.getIsRadioChecked();
+    	boolean isIncome = view.getIsIncome();
     	
 		if (start == null || end == null) 
 		{
             String message = "Must select dates";
             view.displayMessage(message);
-        }  
+        } else if (!isRadioChecked){
+        	view.displayMessage("Check income or expense.");
+        }
 		// (dates are set)
     	else if (a == null){
     		view.displayMessage("Select account to Report.");
     	} else {
     		model.setDates(start, end);
+    		List<ReportEntry> list = new ArrayList<ReportEntry>();
     		if ( a.getDisplayName().equals("All Accounts")){
-    			List<ReportEntry> list = model.getCatArray();
-        		view.gotoChartReport(list);
-    		} else {
-    			List<ReportEntry> list = model.getCatArrayByAccount(a);
-        		view.gotoChartReport(list);
+    			if (isIncome){
+    				list = model.getIncomeCatArrayAll();
+    			} else {
+    				list = model.getOutcomeCatArrayAll();
+    			}        		
+    		} else {   			
+    			if (isIncome){
+    				list = model.getIncomeCatArrayByAccount(a);
+    			} else {
+    				list = model.getIncomeCatArrayByAccount(a);
+    			}
     		}
+    		view.gotoChartReport(list);
     		
     	}
 		

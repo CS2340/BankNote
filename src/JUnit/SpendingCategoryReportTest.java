@@ -79,7 +79,7 @@ public class SpendingCategoryReportTest {
 	public void test() 
 	{
 		SpendingCategoryReport r = new SpendingCategoryReport(start,end);
-		ArrayList<ReportEntry> l = r.getCatArray();
+		ArrayList<ReportEntry> l = r.getOutcomeCatArrayAll();
 		for (ReportEntry e: l)
 		{
 			System.out.println(e.toString());
